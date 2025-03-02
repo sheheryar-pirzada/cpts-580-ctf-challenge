@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Challenge` ADD COLUMN `points` INTEGER NOT NULL DEFAULT 0;
