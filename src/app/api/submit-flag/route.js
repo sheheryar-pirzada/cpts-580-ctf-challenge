@@ -9,7 +9,6 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { flag } = body;
-    console.log(flag);
 
     if (!flag) {
       return NextResponse.json({ error: "Flag is required" }, { status: 400 });

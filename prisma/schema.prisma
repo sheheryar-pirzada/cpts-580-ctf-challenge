@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
 model User {
   id        Int     @id @default(autoincrement())
   username  String  @unique
@@ -23,10 +29,13 @@ model User {
 }
 
 model Challenge {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String     @default("")
+  details     String     @default("")
+  difficulty  Difficulty @default(EASY)
   correctFlag String
-  points      Int    @default(0)
+  points      Int        @default(0)
 
   ChallengeCompletion ChallengeCompletion[]
 }

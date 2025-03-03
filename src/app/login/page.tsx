@@ -45,11 +45,12 @@ export default function Login() {
 
       if (!isSignUp) {
         document.cookie = `auth_token=${data.token}; path=/`;
-        router.push("/scores");
+        router.push("/home");
       } else {
         setIsSignUp(false);
       }
     } catch (error) {
+      // @ts-ignore
       setError(error.message);
     } finally {
       setLoading(false);
@@ -60,7 +61,7 @@ export default function Login() {
     <>
       <MatrixEffect />
       <div className="flex h-screen bg-transparent text-gray-200 relative z-10">
-        <div className={`transition-all duration-500 ${isSignUp ? "w-0 opacity-0" : "w-1/2 opacity-100"} flex flex-col justify-center items-center bg-black overflow-hidden`}>
+        <div className={`transition-all duration-500 ${isSignUp ? "w-0 opacity-0" : "w-1/2 opacity-100"} flex flex-col justify-center items-center bg-transparent backdrop-blur-md overflow-hidden`}>
           <h1 className={`${s2.className} text-6xl`}>Challenge Hints</h1>
           <WordRotate
             duration={5000}
@@ -70,7 +71,7 @@ export default function Login() {
         </div>
 
         <div className={`${isSignUp ? "w-full" : "w-1/2"} flex flex-col justify-center items-center transition-all duration-500`}>
-          <div className={`${isSignUp ? "w-full" : "w-[50vw]"} transition-all duration-500 h-[100vh] flex flex-col justify-center items-center p-10 backdrop-blur-md`}>
+          <div className={`${isSignUp ? "w-full" : "w-[50vw]"} transition-all duration-500 h-[100vh] flex flex-col justify-center items-center p-10 bg-black`}>
             <h2 className="text-2xl font-semibold">{isSignUp ? "Create Account" : "Login"}</h2>
 
             {error && <p className="text-red-500">{error}</p>}

@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `Challenge` ADD COLUMN `description` VARCHAR(191) NOT NULL DEFAULT '',
+    ADD COLUMN `details` VARCHAR(191) NOT NULL DEFAULT '',
+    ADD COLUMN `difficulty` ENUM('EASY', 'MEDIUM', 'HARD') NOT NULL DEFAULT 'EASY';

@@ -2,7 +2,6 @@ import { Globe } from "@/components/magicui/globe";
 import {SpinningText} from "@/components/magicui/SpinningText";
 import {RetroGrid} from "@/components/magicui/RetroGrid";
 import Link from "next/link";
-import {Ripple} from "@/components/magicui/Ripple";
 
 export default function Home() {
   return (

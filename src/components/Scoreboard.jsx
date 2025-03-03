@@ -2,7 +2,7 @@ import { NumberTicker } from '@/components/magicui/NumberTicker';
 
 export default function Scoreboard({ scores }) {
   return (
-    <div className="w-full max-w-4xl mx-auto mt-10 p-6 bg-gray-200 shadow-lg rounded-lg">
+    <div className="w-full max-w-4xl mx-auto mt-10 p-6 bg-gray-100 shadow-lg rounded-lg z-20">
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-300 rounded-lg">
           <thead className="bg-gray-800 text-white">
@@ -17,7 +17,7 @@ export default function Scoreboard({ scores }) {
           {scores
             .sort((a, b) => b.totalPoints - a.totalPoints)
             .map((item, index) => (
-              <tr key={index} className="border-t border-gray-300 hover:bg-gray-300">
+              <tr key={index} className="border-t border-gray-300 hover:bg-gray-300 text-gray-700">
                 <td className="px-6 py-3 font-semibold">{index + 1}</td>
                 <td className="px-6 py-3">{item.username}</td>
                 <td className="px-6 py-3 text-center">{item.challengesCompleted}</td>
