@@ -1,6 +1,5 @@
 "use client"
 
-import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import Header from "@/components/layout/Header";
 
@@ -88,26 +87,26 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-6 border-b border-gray-800 pb-2">Available Challenges</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {data && challenges.map((challenge) => (
-            <div key={challenge.id} className={`bg-gray-800/60 rounded-lg overflow-hidden shadow-lg transition-transform hover:transform hover:scale-105 ${challenge.completed ? 'ring-2 ring-green-500' : ''}`}>
-              <div className="p-5">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold">{challenge.name}</h3>
-                  {hasCompleted(challenge) && (
-                    <span className="bg-green-600 text-xs font-medium px-2 py-1 rounded-full">Completed</span>
-                  )}
-                </div>
-                <p className="text-gray-400 mt-2 text-sm">{challenge.description}</p>
-                <div className="flex justify-between items-center mt-4">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    challenge.difficulty === "EASY" ? "bg-green-900/50 text-green-400" :
-                      challenge.difficulty === "MEDIUM" ? "bg-yellow-900/50 text-yellow-400" :
-                        "bg-red-900/50 text-red-400"
-                  }`}>
-                    {challenge.difficulty}
-                  </span>
-                  <Link href={`/challenges/${challenge.id}`} className="bg-indigo-700 hover:bg-indigo-600 text-white text-sm font-medium px-3 py-1 rounded transition">
-                    {hasCompleted(challenge) ? 'View Details' : 'Solve Challenge'}
-                  </Link>
+            <div key={challenge.id} className="p-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-lg overflow-hidden shadow-lg animate-gradient-x">
+              <div className={`bg-gray-800 rounded-lg h-full ${challenge.completed ? 'ring-2 ring-green-500' : ''}`}>
+                <div className="p-5">
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-xl font-bold">{challenge.name}</h3>
+                    <div className="flex justify-evenly">
+                      <span className={`text-xs mr-2 font-medium px-2 py-1 rounded-full ${
+                        challenge.difficulty === "EASY" ? "bg-green-900/50 text-green-400" :
+                          challenge.difficulty === "MEDIUM" ? "bg-yellow-900/50 text-yellow-400" :
+                            "bg-red-900/50 text-red-400"
+                      }`}>
+                        {challenge.difficulty}
+                      </span>
+                      {hasCompleted(challenge) && (
+                        <span className="bg-green-600 text-xs font-medium px-2 py-1 rounded-full">Completed</span>
+                      )}
+                    </div>
+
+                  </div>
+                  <p className="text-gray-400 mt-2 text-sm">{challenge.description}</p>
                 </div>
               </div>
             </div>

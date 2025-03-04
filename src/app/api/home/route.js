@@ -6,8 +6,7 @@ import jwt from 'jsonwebtoken';
 const SECRET_KEY = process.env.JWT_SECRET;
 
 export async function GET(request) {
-
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = await cookieStore.get("auth_token")?.value;
 
   if (!token) {
@@ -40,25 +39,45 @@ export async function GET(request) {
     include: { challenge: true },
   });
 
-  const completedChallenges = completions.map((completion) => completion.challenge);
-
   const pointsEarned = completions.reduce(
     (total, completion) => total + completion.challenge.points,
     0
   );
 
-  const totalChallenges = await prisma.challenge.count();
+  const userPoints = await prisma.user.findMany({
+    select: {
+      id: true,
+      ChallengeCompletion: {
+        select: {
+          challenge: {
+            select: { points: true }
+          }
+        }
+      }
+    }
+  });
 
-  const yourRank = 12;
+  const userRanks = userPoints.map((u) => ({
+    id: u.id,
+    totalPoints: u.ChallengeCompletion.reduce(
+      (sum, comp) => sum + (comp.challenge.points || 0),
+      0
+    ),
+  }));
+
+  userRanks.sort((a, b) => b.totalPoints - a.totalPoints);
+
+  const yourRank = userRanks.findIndex((u) => u.id === user.id) + 1;
+
+  const totalChallenges = await prisma.challenge.count();
 
   const responseData = {
     totalChallenges,
     completedChallengesCount: completions.length,
     pointsEarned,
     yourRank,
-    completedChallenges,
+    completedChallenges: completions.map((completion) => completion.challenge),
   };
 
   return NextResponse.json(responseData);
 }
-

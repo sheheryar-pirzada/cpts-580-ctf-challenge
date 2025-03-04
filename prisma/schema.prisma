@@ -24,6 +24,7 @@ model User {
   username  String  @unique
   password  String  // Store hashed passwords
   createdAt DateTime @default(now())
+  status    String?
 
   ChallengeCompletion ChallengeCompletion[]
 }

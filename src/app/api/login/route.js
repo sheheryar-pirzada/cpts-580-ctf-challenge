@@ -15,7 +15,7 @@ export async function POST(req) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 });
     }
 
-    // SQL Injection Prevention (Basic Check)
+    // SQL Injection Prevention
     const sqlInjectionPatterns = [
       /--/, /;/, /' OR '/i, /'='/, /"=/, /' OR 1=1/, /" OR "1"="1"/, /UNION/i,
       /SELECT/i, /INSERT/i, /DELETE/i, /DROP/i, /UPDATE/i
@@ -24,7 +24,6 @@ export async function POST(req) {
       return NextResponse.json({ message: "SQL Injection detected!", flag: `FLAG{${process.env.FLAG_2}` });
     }
 
-    // Fetch user from database
     const user = await prisma.user.findUnique({
       where: { username },
     });
@@ -35,18 +34,16 @@ export async function POST(req) {
 
     const hint = Buffer.from(process.env.HINT_1).toString("base64");
 
-    // Generate JWT token
     const token = jwt.sign({ id: user.id, username: user.username, hintMessage: hint, hintURL: "/gallery" }, SECRET_KEY, { expiresIn: "1h" });
 
-    // Set auth cookie (uses `cookies().set()` in Next.js App Router)
-    cookies().set("auth_token", token, {
+    await cookies().set("auth_token", token, {
       httpOnly: true,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
       path: "/",
     });
 
-    return NextResponse.json({ message: "Login successful!", username: user.username, token }, { status: 200 });
+    return NextResponse.json({ message: "Login successful!", username: user.username, token, id: user.id }, { status: 200 });
   } catch (error) {
     console.error("Database error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

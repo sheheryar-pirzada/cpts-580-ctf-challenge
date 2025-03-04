@@ -90,6 +90,7 @@ const TerminalWindow = () => {
         try {
           const response = await fetch("/api/logout", { method: "POST" });
           if (response.ok) {
+            localStorage.clear()
             setOutput((prev) => [...prev, "> Successfully logged out."]);
             router.push("/");
           } else {

@@ -26,9 +26,7 @@ export default function Login() {
     setLoading(true);
 
     const endpoint = isSignUp ? "/api/register" : "/api/login";
-    const payload = isSignUp
-      ? { username: formData.username, password: formData.password }
-      : { username: formData.username, password: formData.password };
+    const payload = { username: formData.username, password: formData.password };
 
     try {
       const response = await fetch(endpoint, {
@@ -44,7 +42,13 @@ export default function Login() {
       }
 
       if (!isSignUp) {
+        // Store auth token in cookies
         document.cookie = `auth_token=${data.token}; path=/`;
+
+        // Store username and user ID in localStorage
+        localStorage.setItem("user_id", data.id);
+        localStorage.setItem("username", data.username);
+
         router.push("/home");
       } else {
         setIsSignUp(false);

@@ -11,11 +11,22 @@ export default {
   	extend: {
 			animation: {
 				grid: "grid 15s linear infinite",
+				'gradient-x': 'gradient-x 3s ease infinite',
 			},
 			keyframes: {
 				grid: {
 					"0%": { transform: "translateY(-50%)" },
 					"100%": { transform: "translateY(0)" },
+				},
+				'gradient-x': {
+					'0%, 100%': {
+						'background-size': '200% 200%',
+						'background-position': 'left center',
+					},
+					'50%': {
+						'background-size': '200% 200%',
+						'background-position': 'right center',
+					},
 				},
 			},
   		colors: {
