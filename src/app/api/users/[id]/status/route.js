@@ -36,7 +36,7 @@ export async function POST(req, { params }) {
 
     if (requestingUserId !== targetUserId) {
       return NextResponse.json({
-        message: `IDOR detected! You've successfully exploited this vulnerability. FLAG{${FLAG_3}`,
+        message: `IDOR detected! You've successfully exploited this vulnerability. FLAG{${FLAG_3}}`,
         flag: FLAG_3,
         updatedUser,
       });

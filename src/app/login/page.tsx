@@ -13,6 +13,7 @@ export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({ username: "", password: "", confirmPassword: "" });
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -41,17 +42,21 @@ export default function Login() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      if (!isSignUp) {
-        // Store auth token in cookies
-        document.cookie = `auth_token=${data.token}; path=/`;
-
-        // Store username and user ID in localStorage
-        localStorage.setItem("user_id", data.id);
-        localStorage.setItem("username", data.username);
-
-        router.push("/home");
+      if (response.flag) {
+        setMessage(`${response.message} ${response.flag}`);
       } else {
-        setIsSignUp(false);
+        if (!isSignUp) {
+          // Store auth token in cookies
+          document.cookie = `auth_token=${data.token}; path=/`;
+
+          // Store username and user ID in localStorage
+          localStorage.setItem("user_id", data.id);
+          localStorage.setItem("username", data.username);
+
+          router.push("/home");
+        } else {
+          setIsSignUp(false);
+        }
       }
     } catch (error) {
       // @ts-ignore
@@ -79,6 +84,7 @@ export default function Login() {
             <h2 className="text-2xl font-semibold">{isSignUp ? "Create Account" : "Login"}</h2>
 
             {error && <p className="text-red-500">{error}</p>}
+            {message && <p className="text-red-500">{message}</p>}
 
             <form onSubmit={handleSubmit} className="mt-6 w-full max-w-sm space-y-4">
               <div>

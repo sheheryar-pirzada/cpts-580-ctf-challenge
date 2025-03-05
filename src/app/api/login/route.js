@@ -21,7 +21,7 @@ export async function POST(req) {
       /SELECT/i, /INSERT/i, /DELETE/i, /DROP/i, /UPDATE/i
     ];
     if (sqlInjectionPatterns.some((pattern) => pattern.test(username) || pattern.test(password))) {
-      return NextResponse.json({ message: "SQL Injection detected!", flag: `FLAG{${process.env.FLAG_2}` });
+      return NextResponse.json({ message: "SQL Injection detected!", flag: `FLAG{${process.env.FLAG_2}}` });
     }
 
     const user = await prisma.user.findUnique({
