@@ -22,6 +22,12 @@ async function main() {
       points: 200, difficulty: "MEDIUM",
       description: "A little ID swap never hurt anyone… or did it?",
     },
+    {
+      name: "Hidden In Plain Sight",
+      correctFlag: `FLAG{${process.env.FLAG_4}}`,
+      points: 400, difficulty: "HARD",
+      description: "The key to this puzzle is hidden within itself—can you unlock the secret buried in our GitHub?",
+    },
   ];
 
   for (const challenge of challenges) {
