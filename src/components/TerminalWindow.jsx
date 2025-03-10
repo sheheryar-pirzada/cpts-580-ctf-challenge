@@ -107,7 +107,7 @@ const TerminalWindow = () => {
       description: "Lists available pages in the web app",
       exec: () => {
         // Adjust this array to match your web app's available routes.
-        const pages = ["/", "/login", "/home", "/scores /gallery /secret /profile"];
+        const pages = ["/", "/login", "/home", "/scores", "/gallery", "/secret", "/profile"];
         const pagesOutput = pages.map(page => `> ${page}`);
         setOutput(prev => [...prev, ...pagesOutput]);
       }
