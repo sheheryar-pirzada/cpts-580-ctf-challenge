@@ -6,7 +6,8 @@ import { X, Minus } from "lucide-react";
 
 const defaultMessages = [
   "> Welcome to the terminal!",
-  "> Type help for a list of commands."
+  "> Type help for a list of commands.",
+  "> (If closed, open the terminal again by pressing [ctrl + `])",
 ];
 
 const TerminalWindow = () => {
@@ -90,7 +91,7 @@ const TerminalWindow = () => {
         try {
           const response = await fetch("/api/logout", { method: "POST" });
           if (response.ok) {
-            localStorage.clear()
+            localStorage.clear();
             setOutput((prev) => [...prev, "> Successfully logged out."]);
             router.push("/");
           } else {
@@ -101,8 +102,16 @@ const TerminalWindow = () => {
           setOutput((prev) => [...prev, "> Error: Logout failed."]);
         }
       }
+    },
+    dir: {
+      description: "Lists available pages in the web app",
+      exec: () => {
+        // Adjust this array to match your web app's available routes.
+        const pages = ["/", "/login", "/home", "/scores /gallery /secret /profile"];
+        const pagesOutput = pages.map(page => `> ${page}`);
+        setOutput(prev => [...prev, ...pagesOutput]);
+      }
     }
-
   };
 
   useEffect(() => {

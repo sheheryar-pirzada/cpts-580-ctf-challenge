@@ -23,6 +23,12 @@ async function main() {
       description: "A little ID swap never hurt anyone… or did it?",
     },
     {
+      name: "Forensics Challenge",
+      correctFlag: `FLAG{${process.env.FLAG_5}}`,
+      points: 200, difficulty: "MEDIUM",
+      description: "Files can hide in plain sight, and some paths lead to unexpected discoveries",
+    },
+    {
       name: "Hidden In Plain Sight",
       correctFlag: `FLAG{${process.env.FLAG_4}}`,
       points: 400, difficulty: "HARD",
