@@ -66,7 +66,7 @@ export default function Home() {
 
   const hasCompleted = (challenge: Challenge) => {
     if (data) {
-      return data.completedChallenges.some((c) => c.id === challenge.id);
+      return data?.completedChallenges.some((c) => c.id === challenge.id);
     }
     return false;
   };
