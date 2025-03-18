@@ -9,20 +9,25 @@ import { Silkscreen } from "next/font/google";
 const s = Silkscreen({ weight: "400", style: "normal", subsets: ["latin"] });
 const s2 = Silkscreen({ weight: "700", style: "normal", subsets: ["latin"] });
 
+interface FormData {
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function Login() {
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [formData, setFormData] = useState({ username: "", password: "", confirmPassword: "" });
-  const [error, setError] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({ username: "", password: "", confirmPassword: "" });
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -43,8 +48,8 @@ export default function Login() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      if (response.flag) {
-        setMessage(`${response.message} ${response.flag}`);
+      if (data.flag) {
+        setMessage(`${data.message} ${data.flag}`);
       } else {
         if (!isSignUp) {
           // Store auth token in cookies
@@ -76,7 +81,12 @@ export default function Login() {
           <WordRotate
             duration={5000}
             className={`text-2xl text-white ${s.className}`}
-            words={["Trust is good, validation is better (OR is it?)", "Admin access, either you have it OR you take it", "Weak passwords: Guess it AND you're in", "Some inputs open doors OR break them"]}
+            words={[
+              "Trust is good, validation is better (OR is it?)",
+              "Admin access, either you have it OR you take it",
+              "Weak passwords: Guess it AND you're in",
+              "Some inputs open doors OR break them"
+            ]}
           />
         </div>
 
