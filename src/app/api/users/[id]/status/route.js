@@ -20,6 +20,7 @@ export async function POST(req, { params }) {
   try {
     decoded = jwt.verify(token, SECRET_KEY);
   } catch (err) {
+    console.log(err);
     return NextResponse.json({ error: "Invalid or expired token." }, { status: 401 });
   }
 
@@ -44,6 +45,7 @@ export async function POST(req, { params }) {
 
     return NextResponse.json(updatedUser);
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: "Failed to update status." }, { status: 500 });
   }
 }

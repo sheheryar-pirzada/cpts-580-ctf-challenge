@@ -5,8 +5,8 @@ import Header from "@/components/layout/Header";
 
 export default function Home() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setLoading] = useState(true);
+  const [, setError] = useState(null);
 
   const [challenges, setChallenges] = useState([]);
 
@@ -21,7 +21,7 @@ export default function Home() {
         const dashboardData = await res.json();
         setData(dashboardData);
       } catch (err) {
-        // @ts-ignore
+        // @ts-expect-error xyz
         setError(err.message);
       } finally {
         setLoading(false);
@@ -42,7 +42,7 @@ export default function Home() {
         const d = await res.json();
         setChallenges(d);
       } catch (err) {
-        // @ts-ignore
+        // @ts-expect-error xyz
         setError(err.message);
       } finally {
         setLoading(false);

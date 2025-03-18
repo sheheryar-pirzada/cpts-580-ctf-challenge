@@ -32,7 +32,7 @@ const Header = () => {
       <div className="flex flex-col md:flex-row justify-between items-center mb-8">
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
-            Sherry & Aashik's CTF Challenges
+            Sherry & Aashik&apos;s CTF Challenges
           </h1>
           <p className="text-gray-400 mt-2">
             {`// TODO: come up with a catchy slogan`}

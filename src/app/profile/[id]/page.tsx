@@ -54,7 +54,7 @@ export default function ProfilePage() {
       ) : (
         <div className="flex h-full w-full items-center justify-center mt-[15vh]">
           <div className="w-full max-w-lg bg-white/5 bg-opacity-5 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/20">
-            <h1 className="text-3xl font-bold text-center">{user.username}'s Profile</h1>
+            <h1 className="text-3xl font-bold text-center">{user.username}&apos;s Profile</h1>
 
             <p className="mt-3 text-gray-300 text-center">
               Status: <span className="font-semibold">{user.status || "No status set"}</span>

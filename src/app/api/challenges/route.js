@@ -16,6 +16,7 @@ export async function GET() {
 
     return NextResponse.json(challenges);
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: 'Error fetching challenges data' },
       { status: 500 }

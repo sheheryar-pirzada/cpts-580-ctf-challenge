@@ -60,7 +60,7 @@ export default function Login() {
         }
       }
     } catch (error) {
-      // @ts-ignore
+      // @ts-expect-error xyz
       setError(error.message);
     } finally {
       setLoading(false);

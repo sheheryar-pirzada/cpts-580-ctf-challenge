@@ -19,7 +19,7 @@ export default function Home() {
       <div className="absolute bottom-16 left-0 right-0 flex justify-center">
         <Link href="/login">
           <button className="bg-slate-100 text-black px-4 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">
-            Let's Get Started
+            Let&apos;s Get Started
           </button>
         </Link>
       </div>

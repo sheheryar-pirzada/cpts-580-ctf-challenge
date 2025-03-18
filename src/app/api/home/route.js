@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env.JWT_SECRET;
 
-export async function GET(request) {
+export async function GET() {
   const cookieStore = await cookies();
   const token = await cookieStore.get("auth_token")?.value;
 
@@ -20,6 +20,7 @@ export async function GET(request) {
   try {
     decoded = jwt.verify(token, SECRET_KEY);
   } catch (err) {
+    console.log(err);
     return NextResponse.json(
       { error: "Invalid or expired token" },
       { status: 401 }
