@@ -53,7 +53,8 @@ export default function Home() {
         }
         const d: Challenge[] = await res.json();
         setChallenges(d);
-      } catch (err: any) {
+      } catch (err) {
+        // @ts-expect-error xyz
         setError(err.message);
       } finally {
         setLoading(false);
