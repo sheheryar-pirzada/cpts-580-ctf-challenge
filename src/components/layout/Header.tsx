@@ -2,11 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
+import {useEffect, useState} from "react";
 
 const Header = () => {
   const path = usePathname()
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const userId = localStorage.getItem("user_id");
+  useEffect(() => {
+    setUserId(localStorage.getItem("user_id"));
+  }, []);
 
   const left = () => {
     if (path !== '/home') {
