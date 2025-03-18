@@ -52,9 +52,10 @@ export default function Home() {
     fetchChallenges();
   }, []);
 
-  const hasCompleted = (challenge) => {
+  const hasCompleted = (challenge: never) => {
     if (data) {
-      if (data.completedChallenges.find((c) => c.id === challenge.id)) {
+      // @ts-expect-error xyz
+      if (data.completedChallenges.find((c: { id: never; }) => c.id === challenge.id)) {
         return true;
       }
     }
