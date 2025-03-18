@@ -3,12 +3,24 @@
 import {useEffect, useState} from 'react';
 import Header from "@/components/layout/Header";
 
-export default function Home() {
-  const [data, setData] = useState(null);
-  const [, setLoading] = useState(true);
-  const [, setError] = useState(null);
+interface Challenge {
+  id: string;
+  // other properties if needed
+}
 
-  const [challenges, setChallenges] = useState([]);
+interface DashboardData {
+  completedChallenges: Challenge[];
+  completedChallengesCount: number;
+  pointsEarned: number;
+  yourRank: number;
+}
+
+export default function Home() {
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [, setLoading] = useState(true);
+  const [, setError] = useState<string | null>(null);
+
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -18,7 +30,7 @@ export default function Home() {
           const err = await res.json();
           throw new Error(err.error || 'Failed to fetch data');
         }
-        const dashboardData = await res.json();
+        const dashboardData: DashboardData = await res.json();
         setData(dashboardData);
       } catch (err) {
         // @ts-expect-error xyz
@@ -39,10 +51,9 @@ export default function Home() {
           const err = await res.json();
           throw new Error(err.error || 'Failed to fetch data');
         }
-        const d = await res.json();
+        const d: Challenge[] = await res.json();
         setChallenges(d);
-      } catch (err) {
-        // @ts-expect-error xyz
+      } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -52,20 +63,12 @@ export default function Home() {
     fetchChallenges();
   }, []);
 
-  interface Challenge {
-    id: string; // Adjust the type if needed
-    completedChallengesCount?: number; // Include any other properties you require
-  }
-
   const hasCompleted = (challenge: Challenge) => {
     if (data) {
-      if (data.completedChallenges.find((c: Challenge) => c.id === challenge.id)) {
-        return true;
-      }
+      return data.completedChallenges.some((c) => c.id === challenge.id);
     }
     return false;
-  }
-
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
