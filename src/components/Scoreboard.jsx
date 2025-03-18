@@ -1,3 +1,5 @@
+"use client";
+
 import { NumberTicker } from '@/components/magicui/NumberTicker';
 
 export default function Scoreboard({ scores }) {
