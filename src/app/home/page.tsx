@@ -52,15 +52,20 @@ export default function Home() {
     fetchChallenges();
   }, []);
 
-  const hasCompleted = (challenge: never) => {
+  interface Challenge {
+    id: string; // Adjust the type if needed
+    completedChallengesCount?: number; // Include any other properties you require
+  }
+
+  const hasCompleted = (challenge: Challenge) => {
     if (data) {
-      // @ts-expect-error xyz
-      if (data.completedChallenges.find((c: { id: never; }) => c.id === challenge.id)) {
+      if (data.completedChallenges.find((c: Challenge) => c.id === challenge.id)) {
         return true;
       }
     }
     return false;
   }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
