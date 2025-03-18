@@ -6,8 +6,9 @@ import { WordRotate } from "@/components/magicui/WordRotate";
 import { useRouter } from "next/navigation";
 import { Silkscreen } from "next/font/google";
 
-const s = Silkscreen({ weight: "400", style: "normal" });
-const s2 = Silkscreen({ weight: "700", style: "normal" });
+const s = Silkscreen({ weight: "400", style: "normal", subsets: ["latin"] });
+const s2 = Silkscreen({ weight: "700", style: "normal", subsets: ["latin"] });
+
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false);
