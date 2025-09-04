@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { X, Minus } from "lucide-react";
 
@@ -16,6 +16,16 @@ const TerminalWindow = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(true);
   const router = useRouter();
+  const outputRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (outputRef.current) {
+      outputRef.current.scrollTo({
+        top: outputRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const commandHandlers = {
     cls: {
@@ -127,6 +137,13 @@ const TerminalWindow = () => {
     };
   }, []);
 
+  // Scroll to bottom when terminal is opened/enlarged
+  useEffect(() => {
+    if (!isMinimized) {
+      setTimeout(scrollToBottom, 100);
+    }
+  }, [isMinimized]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -146,6 +163,9 @@ const TerminalWindow = () => {
       setOutput((prev) => [...prev, `> Command not found: ${command}`]);
     }
     setInput("");
+    
+    // Scroll to bottom after command execution
+    setTimeout(scrollToBottom, 100);
   };
 
   const getTextColorClass = (text) =>
@@ -183,8 +203,8 @@ const TerminalWindow = () => {
           </div>
         </div>
         {!isMinimized && (
-          <div className="py-4 h-full flex flex-col">
-            <div className="flex-grow overflow-y-auto">
+          <div className="h-full flex flex-col">
+            <div ref={outputRef} className="flex-grow overflow-y-auto py-4 px-2">
               {output.map((line, index) => (
                 <div
                   className={`pl-2 ${getTextColorClass(line)}`}
@@ -196,12 +216,12 @@ const TerminalWindow = () => {
             </div>
             <form
               onSubmit={handleSubmit}
-              className="flex mt-2 py-2 px-2 bg-transparent rounded-b-md bottom-1 absolute w-full"
+              className="flex py-2 px-2 bg-black/90 backdrop-blur-md rounded-b-md"
             >
               <span className="mr-2">$</span>
               <input
                 type="text"
-                className="w-full bg-transparent text-green-400 outline-none border-none"
+                className="w-full bg-transparent outline-none border-none"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 autoFocus
