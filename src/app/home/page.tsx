@@ -79,7 +79,7 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-gray-800/60 rounded-lg p-4">
             <p className="text-gray-400 text-sm">Challenges</p>
-            <p className="text-2xl font-bold">5</p>
+            <p className="text-2xl font-bold">4</p>
           </div>
           <div className="bg-gray-800/60 rounded-lg p-4">
             <p className="text-gray-400 text-sm">Completed</p>
