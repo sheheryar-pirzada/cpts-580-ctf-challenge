@@ -117,7 +117,7 @@ const TerminalWindow = () => {
       description: "Lists available pages in the web app",
       exec: () => {
         // Adjust this array to match your web app's available routes.
-        const pages = ["/", "/login", "/home", "/scores", "/gallery", "/profile"];
+        const pages = ["/", "/login", "/home", "/scores", "/gallery", "/profile", "/secret"];
         const pagesOutput = pages.map(page => `> ${page}`);
         setOutput(prev => [...prev, ...pagesOutput]);
       }
@@ -163,7 +163,7 @@ const TerminalWindow = () => {
       setOutput((prev) => [...prev, `> Command not found: ${command}`]);
     }
     setInput("");
-    
+
     // Scroll to bottom after command execution
     setTimeout(scrollToBottom, 100);
   };
